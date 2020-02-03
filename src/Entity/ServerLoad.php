@@ -28,7 +28,7 @@ class ServerLoad
     private $cpuLoad;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(type="integer")
      */
     private $concurrency;
 
@@ -61,12 +61,12 @@ class ServerLoad
         return $this;
     }
 
-    public function getConcurrency(): ?string
+    public function getConcurrency(): ?int
     {
         return $this->concurrency;
     }
 
-    public function setConcurrency(string $concurrency): self
+    public function setConcurrency(int $concurrency): self
     {
         $this->concurrency = $concurrency;
 

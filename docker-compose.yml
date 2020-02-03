@@ -16,6 +16,8 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    depends_on:
+      - db
     networks:
       - app-network
 
@@ -40,7 +42,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - "9306:3306"
     environment:
       MYSQL_DATABASE: sky-monitor
       MYSQL_ROOT_PASSWORD: Qp057726W4O1A5RAg7096025141bjc5g
@@ -49,6 +51,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql/
       - ./docker/db/my.cnf:/etc/mysql/my.cnf
+      - ./log/mysql/error.log:/var/log/mysql/error.log
     networks:
       - app-network
 

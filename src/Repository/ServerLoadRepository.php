@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ServerLoad;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method ServerLoad|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,29 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class ServerLoadRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $manager;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        EntityManagerInterface $manager
+    )
     {
         parent::__construct($registry, ServerLoad::class);
+        $this->manager = $manager;
+    }
+
+    public function addServerLoad(\DateTimeInterface $timestamp, float $cpuLoad, int $concurrency){
+        $newServerLoad = new ServerLoad();
+        $newServerLoad
+            ->setTimestamp($timestamp)
+            ->setCpuLoad($cpuLoad)
+            ->setConcurrency($concurrency);
+        $this->manager->persist($newServerLoad);
+        $this->manager->flush();
+    }
+
+    public function findServerLoad(\DateTimeInterface $from, \DateTimeInterface $to){
+
     }
 
     // /**

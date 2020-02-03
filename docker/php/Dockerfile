@@ -1,7 +1,7 @@
 FROM php:7.2-fpm
 
 # Copy composer.lock and composer.json
-#COPY composer.lock composer.json /var/www/
+COPY composer.lock composer.json .env .env.test /var/www/
 
 # Set working directory
 WORKDIR /var/www
@@ -17,6 +17,8 @@ zlib1g-dev
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-enable apcu
+RUN docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
