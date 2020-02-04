@@ -11,9 +11,12 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         for ($i = 0;  $i < 5; $i++) {
+            $date = new \DateTime();
+            // reduce by 60s for next iteration
+            $date->sub(new \DateInterval('PT'.(60*$i).'S'));
             $serverLoad = new ServerLoad();
-            $serverLoad->setTimestamp(new \DateTime( "-{$i} minutes"));
-            $serverLoad->setConcurrency(rand([0, 500000]));
+            $serverLoad->setTimestamp($date);
+            $serverLoad->setConcurrency(rand(0, 500000));
             $serverLoad->setCpuLoad((float)rand() / (float)getrandmax() * 100);
             $manager->persist($serverLoad);
         }

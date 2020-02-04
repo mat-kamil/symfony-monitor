@@ -18,7 +18,6 @@ class ServerLoad
 
     /**
      * @ORM\Column(type="datetime")
-     * @ORM\Version
      */
     private $timestamp;
 

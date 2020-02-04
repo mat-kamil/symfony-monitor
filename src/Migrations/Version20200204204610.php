@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200203004332 extends AbstractMigration
+final class Version20200204204610 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200203004332 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE server_load (id INT AUTO_INCREMENT NOT NULL, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, cpu_load DOUBLE PRECISION NOT NULL, concurrency INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('DROP INDEX cpu_load ON server_load');
+        $this->addSql('DROP INDEX timestamp ON server_load');
+        $this->addSql('ALTER TABLE server_load CHANGE timestamp timestamp DATETIME NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200203004332 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE server_load');
+        $this->addSql('ALTER TABLE server_load CHANGE timestamp timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
+        $this->addSql('CREATE INDEX cpu_load ON server_load (cpu_load, concurrency)');
+        $this->addSql('CREATE INDEX timestamp ON server_load (timestamp)');
     }
 }

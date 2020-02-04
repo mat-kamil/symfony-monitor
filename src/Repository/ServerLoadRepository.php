@@ -3,9 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\ServerLoad;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @method ServerLoad|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,6 +21,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class ServerLoadRepository extends ServiceEntityRepository
 {
     private $manager;
+    /** @var QueryBuilder */
+    private $qb;
 
     public function __construct(
         ManagerRegistry $registry,
@@ -24,20 +31,41 @@ class ServerLoadRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ServerLoad::class);
         $this->manager = $manager;
+        $this->setQuery();
     }
 
-    public function addServerLoad(\DateTimeInterface $timestamp, float $cpuLoad, int $concurrency){
-        $newServerLoad = new ServerLoad();
-        $newServerLoad
-            ->setTimestamp($timestamp)
-            ->setCpuLoad($cpuLoad)
-            ->setConcurrency($concurrency);
-        $this->manager->persist($newServerLoad);
-        $this->manager->flush();
+    private function setQuery() {
+        $this->qb = $this->_em->createQueryBuilder();
+        $this->qb
+            ->select('sl')
+            ->from('App\Entity\ServerLoad', ' sl');
     }
 
-    public function findServerLoad(\DateTimeInterface $from, \DateTimeInterface $to){
+    public function fetchQuery($from=null,$to=null): ?array
+    {
+        var_dump($from);
+        var_dump($to);
+        if($from) { $this->from($from); }
+        if($to) { $this->to($to); }
+        $query = $this->qb->getQuery();
 
+        return $query->getArrayResult();
+    }
+
+    private function to(DateTimeInterface $value): void
+    {
+        $this->qb
+            ->andWhere('sl.timestamp <= :toDate')
+            ->setParameter('toDate', $value->format('Y-m-d H:i:s'));
+        return;
+    }
+
+    private function from(DateTimeInterface $value): void
+    {
+        $this->qb
+            ->andWhere('sl.timestamp >= :fromDate')
+            ->setParameter('fromDate', $value->format('Y-m-d H:i:s'));
+        return;
     }
 
     // /**
