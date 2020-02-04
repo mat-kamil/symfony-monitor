@@ -43,8 +43,6 @@ class ServerLoadRepository extends ServiceEntityRepository
 
     public function fetchQuery($from=null,$to=null): ?array
     {
-        var_dump($from);
-        var_dump($to);
         if($from) { $this->from($from); }
         if($to) { $this->to($to); }
         $query = $this->qb->getQuery();

@@ -3,10 +3,48 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
+        {% endblock %}
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- font -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap" rel="stylesheet">
+
+        <link href="https://www.sky.com/assets/masthead/images/favicon.png" sizes="16x16" rel="icon">
+        <link href="https://www.sky.com/assets/masthead/images/favicon.ico" rel="shortcut icon">
+
+        <!-- static js files -->
+        <script src="{{ asset('js/moment.min.js') }}"></script>
+        <script src="{{ asset('js/chart.min.js') }}"></script>
+        <script src="{{ asset('js/axios.min.js') }}"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="header-wrap">
+            <div class="header">
+                <div class="inner--section">
+                    <img src="{{ asset('images/sky-logo.png') }}" alt="logo">
+                    <h3>Server load test page</h3>
+                </div>
+            </div>
+        </div>
+        <div class="body-wrap">
+            <div class="body">
+                <div class="inner--section">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="footer-wrap">
+            <div class="footer">
+                <div class="inner--section">
+                    &copy; Sky servers load test page
+                </div>
+            </div>
+        </div>
+
+        {% block javascripts %}
+            <script src="{{ asset('js/app.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

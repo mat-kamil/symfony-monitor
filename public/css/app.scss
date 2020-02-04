@@ -1,0 +1,69 @@
+/**
+ * App scss file
+ * ---------------------------
+ * this scss file is pre-processed locally by my IDE. Webkit was not used.
+ */
+
+@import "settings";
+
+// "inspired by" sky.com
+@font-face{font-family:"Sky Text";font-display:fallback;src:url("//static.skyassets.com/fonts/sky-regular.woff2") format("woff2"),url("//static.skyassets.com/fonts/sky-regular.woff") format("woff")}@font-face{font-family:"Sky Text";font-weight:bold;font-display:fallback;src:url("//static.skyassets.com/fonts/sky-medium.woff2") format("woff2"),url("//static.skyassets.com/fonts/sky-medium.woff") format("woff")}
+
+body {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: $footerBg;
+  font-size: 14px;
+}
+
+img { max-width: 100%; }
+
+body,span,input,textarea,pre {
+  font-family: "Sky Text", "Roboto Condensed", Arial, sans-serif;
+}
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.inner--section {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/**
+ * HEADER
+ */
+.header {
+  background: $headerBg;
+
+  .inner--section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  img { max-height: 40px; }
+
+}
+
+/**
+ * BODY
+ */
+.body {
+  background: $bodyBg;
+  padding: 40px 10px;
+}
+
+
+/**
+ * FOOTER
+ */
+.footer {
+  padding: 10px;
+  text-align: center;
+  font-size: 1rem;
+}
