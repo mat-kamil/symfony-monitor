@@ -14,7 +14,7 @@ ________________________
 
 ### Tasks
  1. Ingestion Layer
-    - for each time you want to ingest 5 minutes, run `docker exec app php bin/console doctrine:fixtures:load --append`
+    - for each time you want to ingest 5 minutes, run `docker exec app bin/console doctrine:fixtures:load --append`
     - since this is a very simple script, duplication for minutes will likely occur if executed concurrently
     - to reset the database when seeding, remove the `--append` option on the command above.
  2. Rest API
