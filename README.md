@@ -7,7 +7,7 @@
     - port:  `9306`
     - user:  `root`
     - password: `Qp057726W4O1A5RAg7096025141bjc5g`
- 4. run the composer install script `docker-compose exec php composer install`
+ 4. run the composer install script `docker-compose exec app php composer install`
  4. run migration script `docker exec app php bin/console doctrine:migrations:migrate` to create necessary database tables
 
 ________________________
