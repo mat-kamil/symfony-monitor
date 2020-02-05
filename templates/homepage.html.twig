@@ -3,6 +3,26 @@
 {% block title %}Server load test page{% endblock %}
 
 {% block body %}
-    <div class="buttons"></div>
-    <canvas id="chart"></canvas>
+    <div class="buttons">
+        <button onclick="setToHour()">Get Hour chart</button>
+        <button onclick="setToDay()">Get Day chart</button>
+        <button onclick="setToMonth()">Get Month chart</button>
+        <div class="from">
+            <label>
+                <span>From</span><br>
+                <input type="date" id="fromDate" />
+                <input type="time" id="fromTime" />
+            </label>
+        </div>
+        <div class="to">
+            <label>
+                <span>To</span><br>
+                <input type="date" id="fromDate"/>
+                <input type="time" id="fromTime"/>
+            </label>
+        </div>
+    </div>
+    <div class="chart-wrap">
+        <canvas id="chart"></canvas>
+    </div>
 {% endblock %}

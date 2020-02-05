@@ -15,11 +15,50 @@
     ctx.canvas.height = 300;
     let color = Chart.helpers.color;
 
+    //this is the chartjs instance
+    window.chart = void 0;
+
     //input fields
     window.toDateInput = function(){ return document.querySelector('#toDate'); };
     window.toTimeInput = function(){ return document.querySelector('#toTime'); };
     window.fromDateInput = function(){ return document.querySelector('#fromDate'); };
     window.fromTimeInput = function(){ return document.querySelector('#fromTime'); };
+
+    //setup values
+    window.setToHour = function(){
+        fromDateInput().value = moment().subtract(1,"hour").format("YYYY-MM-dd");
+        toDateInput().value = moment().format("YYYY-MM-dd");
+        fromTimeInput().value = moment().subtract(1,"hour").format("HH:mm");
+        toTimeInput().value = moment().format("HH:mm");
+
+        updateChart();
+    };
+    window.setToDay = function(){
+        fromDateInput().value = moment().subtract(1,"day").format("YYYY-MM-dd");
+        toDateInput().value = moment().format("YYYY-MM-dd");
+        fromTimeInput().value = moment().subtract(1,"day").format("HH:mm");
+        toTimeInput().value = moment().format("HH:mm");
+
+        updateChart();
+    };
+    window.setToMonth = function(){
+        fromDateInput().value = moment().subtract(1,"month").format("YYYY-MM-dd");
+        toDateInput().value = moment().format("YYYY-MM-dd");
+        fromTimeInput().value = moment().subtract(1,"month").format("HH:mm");
+        toTimeInput().value = moment().format("HH:mm");
+
+        updateChart();
+    };
+    window.updateChart = function() {
+        if(window.chart) {
+            let dataset = chart.config.data.datasets[0];
+            dataset.data = getData();
+            chart.update();
+        }
+    };
+
+    //init value
+    setToHour();
 
     let to = function() {
         return moment([
@@ -145,13 +184,7 @@
         }
     };
 
-    let chart = new Chart(ctx, cfg);
-
-    document.getElementById('update').addEventListener('click', function() {
-        let dataset = chart.config.data.datasets[0];
-        dataset.data = getData();
-        chart.update();
-    });
+    window.chart = new Chart(ctx, cfg);
 })(
     Chart,
     document.querySelector('canvas#chart').getContext('2d'),

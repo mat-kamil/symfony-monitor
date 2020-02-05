@@ -18,18 +18,11 @@ ________________________
     - since this is a very simple script, duplication for minutes will likely occur if executed concurrently
     - to reset the database when seeding, remove the `--append` option on the command above.
  2. Rest API
-    - Build a backend application that will expose an 
-    API to query the afore-ingested data in a RESTful 
-    way. For example asking about the CPU load for 
-    yesterday, or any time range. Feel free to build 
-    the API however you think will be useful to frontend 
-    in functionality.
- 3. Rest API
-    - Build a web page that will consume your REST API 
-    and display graphs of the metrics and show the 
-    average, min and max of the value for a certain 
-    time range that the user can specify in the UI. 
-    By default show last hours worth of data.
+    - API consists of getting one endpoint, `api/server-load` with optional parameters `from` and `to`, which are ISO dates
+ 3. Web Page
+    - I built the web page with ChartJs in mind, with a some javascript
+    - TODO: i could not finish the website due to and error occuring, the composer project would not respond, 
+    no matter what i did. I have therefore taken the decision to submit my app as-is.
  
 
 ________________________
