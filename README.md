@@ -20,8 +20,9 @@ ________________________
  2. Rest API
     - API consists of getting one endpoint, `api/server-load` with optional parameters `from` and `to`, which are ISO dates
  3. Web Page
-    - I built the web page with ChartJs in mind, with a some javascript
-    - TODO: i could not finish the website due to and error occuring, the composer project would not respond, 
+    - I built the web page to show a chart and using some custom javascript to load everything in.
+    - I used chartjs, moment & axios to facilitate me in the code.
+    - TODO: i could not finish the website due to and error occurring, the composer project would not respond, 
     no matter what i did. I have therefore taken the decision to submit my app as-is.
  
 
